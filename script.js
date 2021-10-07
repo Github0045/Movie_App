@@ -12,29 +12,50 @@ const form = document.getElementById('form');
 async function getData(url) {
     const response = await fetch(url);
     const data = await response.json();
-    updataUI(data.results);
+    loadingEffect(data.results);
 }
 getData(API_URL);
 
+// Loading Effect
+function loadingEffect(data) {
+    main.innerHTML = '';
+    data.forEach(card => {
+        let html = `
+            <div class="movie">
+                <div class="img gradient"></div>
+                <div class="info">
+                    <span class="gradient-text"></span>
+                    <span class="gradient-text"></span>
+                </div>
+            </div>
+        `;
+        main.innerHTML += html;
+        setTimeout(() => {
+            main.innerHTML = '';
+            data.forEach(item => {
+                const {poster_path, title, overview, vote_average} = item;
+                let html = `
+                <div class="movie">
+                    <img src="${IMG_URL + poster_path}" alt="${title}">
+                    <div class="info">
+                        <h3>${title}</h3>
+                        <span class="${changeClass(vote_average)}">${vote_average}</span>
+                    </div>
+                    <div class="overview">
+                        <h3>Overview</h3>
+                        <p>${overview}</p>
+                    </div>
+                </div>`;
+                main.innerHTML += html;
+            });
+        }, 2500)
+    });
+    updataUI(data);
+}
+
 // Updata The UI Function
 function updataUI(data) {
-    main.innerHTML = '';
-    data.forEach(item => {
-        const {poster_path, title, overview, vote_average} = item;
-        let html = `
-        <div class="movie">
-            <img src="${IMG_URL + poster_path}" alt="${title}">
-            <div class="info">
-                <h3>${title}</h3>
-                <span class="${changeClass(vote_average)}">${vote_average}</span>
-            </div>
-            <div class="overview">
-                <h3>Overview</h3>
-                <p>${overview}</p>
-            </div>
-        </div>`;
-        main.innerHTML += html;
-    });
+    
 }
 
 // Change Vote Average Color

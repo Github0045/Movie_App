@@ -107,3 +107,32 @@ main .movie img {
         grid-template-columns: 100%;
     }
 }
+
+/* Gradient */
+.movie .img.gradient {
+    height: 500px;
+    background-image: linear-gradient(to right, #2980b9 0%, rgba(0, 0, 0, 0.3) 10%, #2980b9 20%, #2980b9 100%);
+}
+main .movie .info {
+    flex-direction: column;
+    padding: 10px;
+}
+.movie .info .gradient-text {
+    width: 100%;
+    margin: 5px 0;
+    height: 15px;
+    background-image: linear-gradient(to right, #2980b9 0%, rgba(0, 0, 0, 0.3) 10%, #2980b9 20%, #2980b9 100%);
+}
+.movie .img.gradient,
+.movie .info .gradient-text {
+    background-size: 200% 100%;
+    animation: gradient 1s linear infinite;
+}
+@keyframes gradient {
+    0% {
+        background-position: 0;
+    }
+    100% {
+        background-position: -200%;
+    }
+}
